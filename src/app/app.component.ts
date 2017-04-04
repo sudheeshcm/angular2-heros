@@ -1,41 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-
-import { Hero } from './hero';
-import { HeroService } from './hero.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'my-app',
-  template: 
+  template:
   `<div>
     <h1>{{title}}</h1>
-    <ul class='heroes'>
-      <li *ngFor='let hero of heroes'
-        [class.selected]="hero === selectedHero"
-        (click)='onSelect(hero)'
-      >
-        <span class='badge'>{{hero.id}}</span> {{hero.name}}
-      </li>
-    </ul>
-    <hero-detail [hero]='selectedHero'></hero-detail>
+    <nav>
+     <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+     <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
+   </nav>
+    <router-outlet></router-outlet>
   </div>`,
-  providers: [HeroService],
+  styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'Angular 2 Heros';
-  heroes: Hero[];  
-  selectedHero: Hero;
-
-  constructor(private heroService: HeroService) {}
-  
-  ngOnInit(): void {
-    this.getHeroes();
-  }
-
-  getHeroes(): void {
-    this.heroService.getHeroesSlowly().then(heroes => this.heroes = heroes);
-  };
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
-  };
 }
